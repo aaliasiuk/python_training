@@ -18,19 +18,25 @@ class LoginTest(unittest.TestCase):
     def test_login(self):
         driver = self.driver
         self.open_home_page(driver)
-        self.login(driver)
+        self.login(driver, username="aaliasiuk@gazelle.com", password="Sqa2018sqa")
         self.logout(driver)
-       
+
+    def test_invalid_login(self):
+        driver = self.driver
+        self.open_home_page(driver)
+        self.login(driver, username="aaliasiuk@gazelle.com", password="invalid")
+        #self.logout(driver)
+
     def logout(self, driver):
         driver.find_element_by_id("customer_logout_link").click()
 
-    def login(self, driver):
+    def login(self, driver, username, password):
         driver.find_element_by_id("customer_login_link").click()
         driver.find_element_by_id("CustomerEmail").clear()
-        driver.find_element_by_id("CustomerEmail").send_keys("aaliasiuk@gazelle.com")
+        driver.find_element_by_id("CustomerEmail").send_keys(username)
         driver.find_element_by_id("CustomerPassword").click()
         driver.find_element_by_id("CustomerPassword").clear()
-        driver.find_element_by_id("CustomerPassword").send_keys("Sqa2018sqa")
+        driver.find_element_by_id("CustomerPassword").send_keys(password)
         driver.find_element_by_xpath(
             "(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::input[2]").click()
 
